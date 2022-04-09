@@ -82,8 +82,8 @@ ________________________________________________________________________________
 """
 
 plt.figure(figsize=(16,8))
-plt.title('RSI')
-plt.plot(price_data['R Percent'])
+plt.title('Volume')
+plt.plot(price_data['Close'])
 plt.xlabel('Date', fontsize=18)
-plt.ylabel('Close Price USD($)', fontsize=11)
+plt.ylabel('Volume($)', fontsize=11)
 plt.show()

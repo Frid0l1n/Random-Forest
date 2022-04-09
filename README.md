@@ -3,7 +3,8 @@ My interest in machine Learning, data analytics and the Stockmarket led me to ch
 
 ## Data preperation
 There are four essential types of financial data.
-Fundamental data contains information that could be found in regulatori filings and buisnes analytics. Accaunting data which is reported quarterly. Fundamental data is extremly regulized and low frequency but it maybe useful in combination with other data types.
+>Fundamental data contains information that could be found in regulatori filings and buisnes analytics. Accaunting data which is reported quarterly. Fundamental data is extremly regulized and low frequency but it maybe useful in combination with other data types.
+>Market data includes all trading activity that takes place in an exchange. Every market participant leaves a characteristic footprint in the trading records. As an example TWAP algorithms leave a very particular footprint.
 
 | Fundamental data| Market Data                   | Analytics               | Alternative Data     |
 | --------------- | ----------------------------- | --------------------    | ---------------------|

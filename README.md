@@ -13,7 +13,7 @@ There are four essential types of financial data.
 
 * Analytics is already processed for you in a particular way. Many investment banks are selling these valuable indepth analisys of various companys. Those banks or companys analyse the activities, competition, outlook etc. The signal is already extracted from the raw data.
 
-* Alternative Data is mainly produced by individuals [Wallstreetbets](https://www.reddit.com/r/wallstreetbets) is such an alternative data producer these guys are pushing litle stocks as an example 'Gamestop'. Alternative data is also produced by different journals or google searches.
+* Alternative Data is mainly produced by individuals, [Wallstreetbets](https://www.reddit.com/r/wallstreetbets) is such an alternative data producer these guys are pushing litle stocks as an example 'Gamestop'. Alternative data is also produced by different journals or google searches.
 
 | Fundamental data| Market Data                   | Analytics               | Alternative Data     |
 | --------------- | ----------------------------- | --------------------    | ---------------------|

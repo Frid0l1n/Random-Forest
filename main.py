@@ -31,7 +31,7 @@ down_df['Change In Price'] = down_df['Change In Price'].abs()
 ewma_up = up_df['Change In Price'].transform(lambda x: x.ewm(span = n).mean())
 ewma_down = down_df['Change In Price'].transform(lambda x: x.ewm(span = n).mean())
 #calculate the relative strength "RS"
-relative_strength = ewma_up/ewma_down   
+relative_strength = ewma_up/ewma_down
 #calculate the relative strength index "RSI"
 relative_strength_index = 100.0 -(100.0 / (1.0+(relative_strength)))
 #add the new lines to the dataframe
@@ -81,6 +81,9 @@ price_data['R Percent'] = R_percent
 ______________________________________________________________________________________________________________________________________________________________________
 """
 
-
-
-print(price_data[['R Percent']].head(30))
+plt.figure(figsize=(16,8))
+plt.title('RSI')
+plt.plot(price_data['R Percent'])
+plt.xlabel('Date', fontsize=18)
+plt.ylabel('Close Price USD($)', fontsize=11)
+plt.show()

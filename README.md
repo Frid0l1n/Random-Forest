@@ -7,7 +7,7 @@ My interest in machine Learning, data analytics and the Stockmarket led me to ch
 
 ## Data preperation
 There are four essential types of financial data.
-* [Fundamental data](https://www.investopedia.com/terms/f/fundamentalanalysis.asp) contains information that could be found in regulator filings and buisnes analytics.    Accaunting data which is reported quarterly. Fundamental data is extremly regulized and low frequency but it maybe useful in combination with other data types.
+* [Fundamental data](https://www.investopedia.com/terms/f/fundamentalanalysis.asp) contains information that can be found in regulator filings and buisnes analytics.    Accaunting data which is reported quarterly. Fundamental data is extremly regularized and only in low frequency available but it maybe useful in combination with other data types.
 
 * [Market data](https://www.ig.com/en/glossary-trading-terms/market-data-definition) includes all trading activity that takes place in an exchange. Every market participant leaves a characteristic footprint in the trading records. As an example TWAP algorithms leave a very particular footprint.
 
@@ -20,7 +20,7 @@ There are four essential types of financial data.
 | Assets          | Price/yield/implied volatility| Analyst recommendations | Satellite/CCTV images|
 | Liabilities     | Volume                        | Credit ratings          |Google searches       |
 | Sales           | Dividend/coupons              | Earning expectations    |Socialmedia chats     |
-| Cost/earnings   | Open interest                 | News sentiment          |Metadata              |
+| Cost/earnings   | Open interest                 | News sentiments         |Metadata              |
 | Macro variables | Quotes/cancellations          | ....                    |....                  |
 | ....            | ....                          |                         |                      |
 

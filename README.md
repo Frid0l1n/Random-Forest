@@ -1,7 +1,9 @@
 # Random forest for financial machine learning
-My interest in machine Learning, data analytics and the Stockmarket led me to choose the topic financial machine learning for my final project of High School. I've no experience with machine learning but i'll try my best and document the whole process of building the model. The financial industry is growing day by day and is looking for ways to use machine learning for managing the risk of loosing money.
 
 **Version 1.0.0**
+
+My interest in machine Learning, data analytics and the Stockmarket led me to choose the topic financial machine learning for my final project of High School. I've no experience with machine learning but i'll try my best and document the whole process of building the model. The financial industry is growing day by day and is looking for ways to use machine learning for managing the risk of loosing money.
+
 
 ## Data preperation
 There are four essential types of financial data.
@@ -9,7 +11,9 @@ There are four essential types of financial data.
 
 * [Market data](https://www.ig.com/en/glossary-trading-terms/market-data-definition) includes all trading activity that takes place in an exchange. Every market participant leaves a characteristic footprint in the trading records. As an example TWAP algorithms leave a very particular footprint.
 
-* Analytics
+* Analytics is already processed for you in a particular way. Many investment banks are selling these valuable indepth analisys of various companys. Those banks or companys analyse the activities, competition, outlook etc. The signal is already extracted from the raw data.
+
+* Alternative Data is mainly produced by individuals [Wallstreetbets](https://www.reddit.com/r/wallstreetbets) is such an alternative data producer these guys are pushing litle stocks as an example 'Gamestop'. Alternative data is also produced by different journals or google searches.
 
 | Fundamental data| Market Data                   | Analytics               | Alternative Data     |
 | --------------- | ----------------------------- | --------------------    | ---------------------|

@@ -1,10 +1,15 @@
 # Random forest for financial machine learning
-My interest in machine Learning, data analytics and the Stockmarket led me to choose the topic financial machine learning for my final project of the High School. I've no experience with machine learning but i'll try my best and document the whole process of building the model. The financial industry is growing day by day and is looking for ways to use machine learning for managing the risk of loosing money.
+My interest in machine Learning, data analytics and the Stockmarket led me to choose the topic financial machine learning for my final project of High School. I've no experience with machine learning but i'll try my best and document the whole process of building the model. The financial industry is growing day by day and is looking for ways to use machine learning for managing the risk of loosing money.
+
+**Version 1.0.0**
 
 ## Data preperation
 There are four essential types of financial data.
-Fundamental data contains information that could be found in regulator filings and buisnes analytics. Accaunting data which is reported quarterly. Fundamental data is extremly regulized and low frequency but it maybe useful in combination with other data types.
-Market data includes all trading activity that takes place in an exchange. Every market participant leaves a characteristic footprint in the trading records. As an example TWAP algorithms leave a very particular footprint.
+* [Fundamental data](https://www.investopedia.com/terms/f/fundamentalanalysis.asp) contains information that could be found in regulator filings and buisnes analytics.    Accaunting data which is reported quarterly. Fundamental data is extremly regulized and low frequency but it maybe useful in combination with other data types.
+
+* [Market data](https://www.ig.com/en/glossary-trading-terms/market-data-definition) includes all trading activity that takes place in an exchange. Every market participant leaves a characteristic footprint in the trading records. As an example TWAP algorithms leave a very particular footprint.
+
+* Analytics
 
 | Fundamental data| Market Data                   | Analytics               | Alternative Data     |
 | --------------- | ----------------------------- | --------------------    | ---------------------|

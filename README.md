@@ -30,7 +30,8 @@ For data preparation we use the open source python library [pandas](https://pand
 ML models generally suffer from three main errors
 
 * Bias: This error is caused by unrealistic assumptions. When Bias is high the algorithm failed to recognize important relations between features and outcomes. In this situation, the algorithm is said to be ["underfit"](https://www.ibm.com/cloud/learn/underfitting)
-*Variance: This error is caused by sensivity to small changes in the data set. When the variance is high, the algorithm has overfit the dataset. Minimal changes in the dataset can produce widly different predictions. Rather than modeelling the gerneral patzterns in the dataset, the algorithm has mistaken [noise](https://deepchecks.com/glossary/noise-in-machine-learning/) with signal.
+
+* Variance: This error is caused by sensivity to small changes in the data set. When the variance is high, the algorithm has overfit the dataset. Minimal changes in the dataset can produce widly different predictions. Rather than modeelling the gerneral patzterns in the dataset, the algorithm has mistaken [noise](https://deepchecks.com/glossary/noise-in-machine-learning/) with signal.
 
 #### Sources
 Advances in Financial Machine Learning (Marcos Lopez de Prado published in 23. January 2018)

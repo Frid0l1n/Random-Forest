@@ -37,22 +37,30 @@ price_data['Change In Price'] = down_df['Change In Price']
 price_data['Change In Price'] = up_df['Change In Price']
 price_data['RSI'] = relative_strength_index
 
+#14 days low
+n = 14
+
+low_14, high_14 = price_data[['Low']].copy(), price_data[['High']].copy()
+low14 = low_14['Low'].transform(lambda x: x.rolling(window = n).min())
+high14 = high_14['High'].transform(lambda x: x.rolling(window = n).max())
+price_data['Low_14'] = low14
+price_data['High_14'] = high14
+
 
 
 #Visualize the Data
-print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI')
+print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nlow14')
 
 choice = input('enter your choice: ')
 
-
 plt.figure(figsize=(16,8))
-plt.title('Volume')
-plt.plot(price_data[[choice]])
-plt.xlabel('Date', fontsize=18)
+plt.title(choice)
+plt.plot(price_data[[choice, 'Low_14', "High_14"]])
+plt.xlabel('Date', fontsize=2)
 plt.ylabel('Volume($)', fontsize=11)
 plt.show()
-
 """
+
 Random Forest
 ________________________________________________________________________________________________________________________________________________________________________
 """

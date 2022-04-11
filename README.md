@@ -17,7 +17,7 @@ There are four essential types of financial data.
 
 | Fundamental data| Market Data                   | Analytics               | Alternative Data     |
 | --------------- | ----------------------------- | --------------------    | ---------------------|
-| Assets          | Price/yield/implied volatility| Analyst recommendations | Satellite/CCTV images|
+| Assets          | Price/yield/implied volatility| Analyst recommendations |Satellite/CCTV images |
 | Liabilities     | Volume                        | Credit ratings          |Google searches       |
 | Sales           | Dividend/coupons              | Earning expectations    |Socialmedia chats     |
 | Cost/earnings   | Open interest                 | News sentiments         |Metadata              |

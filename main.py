@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 #import the data and create Dataframe
-df = pd.read_csv("NVDA.csv", skip_blank_lines=True)
+df = pd.read_csv("GOOG.csv", skip_blank_lines=True)
 price_data = df[['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']]
 
 #format output
@@ -37,7 +37,7 @@ price_data['Change In Price'] = down_df['Change In Price']
 price_data['Change In Price'] = up_df['Change In Price']
 price_data['RSI'] = relative_strength_index
 
-#14 days low
+#14 days low/14 days high
 n = 14
 
 low_14, high_14 = price_data[['Low']].copy(), price_data[['High']].copy()
@@ -56,11 +56,8 @@ choice = input('enter your choice: ')
 plt.figure(figsize=(16,8))
 plt.title(choice)
 plt.plot(price_data[[choice, 'Low_14', "High_14"]])
-plt.xlabel('Date', fontsize=2)
+plt.xlabel('Date')
 plt.ylabel('Volume($)', fontsize=11)
+plt.grid()
 plt.show()
-"""
 
-Random Forest
-________________________________________________________________________________________________________________________________________________________________________
-"""

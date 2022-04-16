@@ -2,9 +2,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 #import the data and create Dataframe
-df = pd.read_csv("GOOG.csv", skip_blank_lines=True)
+df = pd.read_csv("NVDA.csv", skip_blank_lines=True)
 price_data = df[['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']]
 
 #format output
@@ -46,7 +45,11 @@ high14 = high_14['High'].transform(lambda x: x.rolling(window = n).max())
 price_data['Low_14'] = low14
 price_data['High_14'] = high14
 
-
+#calculate simple moving average
+n = 14
+prices = price_data['Change In Price'].copy()
+price_n = prices['Change In Price'].transform(lambda x: x.rolling(window = n).add())
+print(price_n)
 
 #Visualize the Data
 print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nlow14')
@@ -60,4 +63,3 @@ plt.xlabel('Date')
 plt.ylabel('Volume($)', fontsize=11)
 plt.grid()
 plt.show()
-

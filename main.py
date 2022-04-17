@@ -47,12 +47,11 @@ price_data['High_14'] = high14
 
 #calculate simple moving average
 n = 14
-prices = price_data['Change In Price'].copy()
-price_n = prices['Change In Price'].transform(lambda x: x.rolling(window = n).add())
-print(price_n)
+sma = price_data['Close'].transform(lambda x: x.ewm(span = n).mean())
+price_data["SMA"] = sma
 
 #Visualize the Data
-print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nlow14')
+print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nlow14\nSMA')
 
 choice = input('enter your choice: ')
 

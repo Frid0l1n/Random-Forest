@@ -14,8 +14,6 @@ price_data['Change In Price'] = price_data['Close'].diff()
 
 #calculate the rsi
 n = 14
-
-n = 14
 up_df, down_df = price_data[['Change In Price']].copy(), price_data[['Change In Price']].copy()
 #for up days if the change is smaller than 0 set it to 0
 #for down days if the change is greater than 0 set it to 0
@@ -47,6 +45,7 @@ price_data['High_14'] = high14
 
 #calculate simple moving average
 n = 14
+#calculate the average of the 14 days
 sma = price_data['Close'].transform(lambda x: x.ewm(span = n).mean())
 price_data["SMA"] = sma
 
@@ -57,8 +56,9 @@ choice = input('enter your choice: ')
 
 plt.figure(figsize=(16,8))
 plt.title(choice)
-plt.plot(price_data[[choice, 'Low_14', "High_14"]])
+plt.plot(price_data[["Close", choice]])
 plt.xlabel('Date')
 plt.ylabel('Volume($)', fontsize=11)
+plt.legend(["Close", choice])
 plt.grid()
 plt.show()

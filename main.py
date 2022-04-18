@@ -1,9 +1,11 @@
+from cgi import test
+from posixpath import split
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
 #import the data and create Dataframe
-df = pd.read_csv("NVDA.csv", skip_blank_lines=True)
+df = pd.read_csv("SREN.SW.csv", skip_blank_lines=True)
 price_data = df[['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']]
 
 #format output
@@ -40,8 +42,8 @@ n = 14
 low_14, high_14 = price_data[['Low']].copy(), price_data[['High']].copy()
 low14 = low_14['Low'].transform(lambda x: x.rolling(window = n).min())
 high14 = high_14['High'].transform(lambda x: x.rolling(window = n).max())
-price_data['Low_14'] = low14
-price_data['High_14'] = high14
+price_data['Low14'] = low14
+price_data['High14'] = high14
 
 #calculate simple moving average
 n = 14
@@ -49,16 +51,17 @@ n = 14
 sma = price_data['Close'].transform(lambda x: x.ewm(span = n).mean())
 price_data["SMA"] = sma
 
+
 #Visualize the Data
-print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nlow14\nSMA')
+print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nHigh14\nLow14\nSMA')
 
 choice = input('enter your choice: ')
 
 plt.figure(figsize=(16,8))
 plt.title(choice)
-plt.plot(price_data[["Close", choice]])
-plt.xlabel('Date', fontsize = 8)
+plt.plot(price_data[[choice]])
+plt.xlabel('Date', fontsize = 11)
 plt.ylabel('Volume($)', fontsize=11)
-plt.legend(["Close", choice])
+plt.legend([choice])
 plt.grid()
 plt.show()

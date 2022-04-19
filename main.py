@@ -1,11 +1,10 @@
-from cgi import test
-from posixpath import split
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 #import the data and create Dataframe
-df = pd.read_csv("SREN.SW.csv", skip_blank_lines=True)
+df = pd.read_csv("./stocks/NVDA.csv", skip_blank_lines=True)
 price_data = df[['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']]
 
 #format output
@@ -52,11 +51,22 @@ sma = price_data['Close'].transform(lambda x: x.ewm(span = n).mean())
 price_data["SMA"] = sma
 
 
+#create trainingset
+#copy price data to drop the close column
+training = price_data.copy()
+#drop price data
+training_data = training.drop("Close", axis = 1)
+#print data
+print(training_data)
+print(price_data)
+
 #Visualize the Data
 print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nHigh14\nLow14\nSMA')
 
+#ask the user which data he wants to see
 choice = input('enter your choice: ')
 
+#create diagram
 plt.figure(figsize=(16,8))
 plt.title(choice)
 plt.plot(price_data[[choice]])

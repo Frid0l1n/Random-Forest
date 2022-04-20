@@ -2,10 +2,10 @@
 
 **Version 1.0.0**
 # Table of contents
--[Data preperation](#data-preperation)
--[Modelling](#modelling)
+[Data preperation](#data-preperation)
+[Modelling](#modelling)
  -[Random Forest](#random-forest)
--[Sources](#sources)
+[Sources](#sources)
  -[Books](#books)
  -[Websites](#websites)
  -[Videos](#videos)

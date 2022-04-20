@@ -39,4 +39,12 @@ ML models generally suffer from three main errors
 Decision trees are known to be prone to overfitting this means the variance of the forecast is really high. The random forest (RF) method was designed to produce ensemble forecast with lower variance.
 
 #### Sources
-Advances in Financial Machine Learning (Marcos Lopez de Prado published in 23. January 2018)
+###### Books
+Advances in Financial Machine Learning (Marcos Lopez de Prado published 23. January 2018)
+Applied quantitative finance using python for financial analysis (Mauricio Garita published 3. September 2021)
+The elements of statistical learning Data mining, Inference and Prediction (Trevor Hastie, Robert Tibshirani, Jerome Friedman 2001)
+Introduction to Machine Learning with python (Andreas C.Müller, Sahra Guido published 2016)
+###### Websites
+[Scikit-learn](https://scikit-learn.org/stable/)
+[Pandas](https://pandas.pydata.org/)
+###### Videos

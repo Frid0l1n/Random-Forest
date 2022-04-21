@@ -1,5 +1,4 @@
-from pickle import FALSE
-from re import X
+from cProfile import label
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -59,7 +58,8 @@ training = price_data.copy()
 #drop price data
 training_data = training.drop("Close", axis = 1)
 #Visualize the Data
-print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nHigh14\nLow14\nSMA\X')
+print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nHigh14\nLow14\nSMA')
+print("to leave visualize the data press X")
 
 #ask the user which data he wants to see
 list_stocks = []
@@ -70,13 +70,15 @@ while True:
         break
 
 list_stocks.remove(list_stocks[len(list_stocks)-1])
+plt_title = ", ".join(map(str, list_stocks))
+print(plt_title)
 
 #create diagram
 plt.figure(figsize=(16,8))
-plt.title([list_stocks])
-plt.plot(price_data[list_stocks])
+plt.title(plt_title)
+plt.plot(price_data[list_stocks], label = list_stocks)
 plt.xlabel("Date", fontsize = 11)
 plt.ylabel('Volume($)', fontsize=11)
-plt.legend([list_stocks])
+plt.legend(list_stocks)
 plt.grid()
 plt.show()

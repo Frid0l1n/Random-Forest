@@ -1,9 +1,8 @@
+from pickle import FALSE
+from re import X
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier
 
 
 #import the data and create Dataframe
@@ -60,35 +59,24 @@ training = price_data.copy()
 #drop price data
 training_data = training.drop("Close", axis = 1)
 #Visualize the Data
-print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nHigh14\nLow14\nSMA')
+print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nHigh14\nLow14\nSMA\X')
 
 #ask the user which data he wants to see
-choice = input('enter your choice: ')
+list_stocks = []
+while True:
+    choice = input('enter your choice: ')
+    list_stocks.append(choice)
+    if choice == "X":
+        break
+
+list_stocks.remove(list_stocks[len(list_stocks)-1])
 
 #create diagram
 plt.figure(figsize=(16,8))
-plt.title(choice)
-plt.plot(price_data[[choice]])
+plt.title([list_stocks])
+plt.plot(price_data[list_stocks])
 plt.xlabel('Date', fontsize = 11)
 plt.ylabel('Volume($)', fontsize=11)
 plt.legend([choice])
 plt.grid()
 plt.show()
-
-#random forest
-#preparing training data
-X = np.array(training_data)
-Y = np.array(price_data["Close"])
-
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.2, random_state=0)
-
-X_test = np.array(X_test)
-Y_test = np.array(Y_test)
-
-sc = StandardScaler()
-X_train = sc.fit_transform(X_train)
-X_test = sc.fit_transform(X_test)
-
-classifier = RandomForestClassifier(n_estimators=100, random_state=0)
-classifier.fit(X_train, Y_train)
-y_pred = classifier.predict(X_test)

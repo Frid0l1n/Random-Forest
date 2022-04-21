@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
 
 
 #import the data and create Dataframe
@@ -56,10 +59,6 @@ price_data["SMA"] = sma
 training = price_data.copy()
 #drop price data
 training_data = training.drop("Close", axis = 1)
-#print data
-print(training_data)
-print(price_data)
-
 #Visualize the Data
 print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nHigh14\nLow14\nSMA')
 
@@ -75,3 +74,21 @@ plt.ylabel('Volume($)', fontsize=11)
 plt.legend([choice])
 plt.grid()
 plt.show()
+
+#random forest
+#preparing training data
+X = np.array(training_data)
+Y = np.array(price_data["Close"])
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.2, random_state=0)
+
+X_test = np.array(X_test)
+Y_test = np.array(Y_test)
+
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.fit_transform(X_test)
+
+classifier = RandomForestClassifier(n_estimators=100, random_state=0)
+classifier.fit(X_train, Y_train)
+y_pred = classifier.predict(X_test)

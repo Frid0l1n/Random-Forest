@@ -1,14 +1,17 @@
-from cProfile import label
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
+import yfinance as yf
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
 
 #import the data and create Dataframe
-df = pd.read_csv("./stocks/NVDA.csv", skip_blank_lines=True)
-price_data = df[['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']]
+stock = input("choose stock")
+input_data = yf.Ticker(stock)
+price_data = input_data.history(period="1y")
 
-#format output
+
+#format output 
 #pd.set_option("display.max_rows", None,"display.max_columns", None)
 #calculate the change in price
 price_data['Change In Price'] = price_data['Close'].diff()
@@ -82,3 +85,14 @@ plt.ylabel('Volume($)', fontsize=11)
 plt.legend(list_stocks)
 plt.grid()
 plt.show()
+
+#get the target variable
+y = price_data["Close"]
+#load dataframe without the prediction collum
+X = training_data
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=0)
+print(f'X_train: {X_train.shape}')
+print(f'X_test: {X_test.shape}')
+print(f'y_train: {y_train.shape}')
+print(f'y_train: {y_test.shape}')

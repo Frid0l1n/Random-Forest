@@ -6,9 +6,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
 #import the data and create Dataframe
-stock = input("choose stock")
+stock = input("choose stock: ")
 input_data = yf.Ticker(stock)
 price_data = input_data.history(period="1y")
+print(price_data)
 
 
 #format output 

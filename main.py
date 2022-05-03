@@ -3,12 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import yfinance as yf
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 
 #import the data and create Dataframe
 stock = input("choose stock: ")
 input_data = yf.Ticker(stock)
-price_data = input_data.history(period="1y")
+timespan = input("choose time span: ")
+price_data = input_data.history(period = timespan)
 print(price_data)
 
 
@@ -76,7 +77,6 @@ while True:
 list_stocks.remove(list_stocks[len(list_stocks)-1])
 plt_title = ", ".join(map(str, list_stocks))
 print(plt_title)
-
 #create diagram
 plt.figure(figsize=(16,8))
 plt.title(plt_title)

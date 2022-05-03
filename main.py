@@ -1,16 +1,17 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn import random_projection
 import yfinance as yf
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.metrics import r2_score
 
 #import the data and create Dataframe
 stock = input("choose stock: ")
 input_data = yf.Ticker(stock)
 timespan = input("choose time span: ")
 price_data = input_data.history(period = timespan)
-print(price_data)
 
 
 #format output 
@@ -87,13 +88,19 @@ plt.legend(list_stocks)
 plt.grid()
 plt.show()
 
-#get the target variable
-y = price_data["Close"]
-#load dataframe without the prediction collum
-X = training_data
+price_data = price_data.dropna()
+print(price_data)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=0)
-print(f'X_train: {X_train.shape}')
-print(f'X_test: {X_test.shape}')
-print(f'y_train: {y_train.shape}')
-print(f'y_train: {y_test.shape}')
+#split data to attributes and labels
+X = price_data[["Open","High","Low","Volume","Dividends","Stock Splits","Change In Price", "RSI","Low14","High14","SMA"]]
+y = price_data[["Close"]]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+regressor = RandomForestRegressor(n_estimators=1000, random_state=0)
+regressor.fit(X_train, y_train)
+y_pred = regressor.predict(X_test)
+print(y_pred)
+
+model = r2_score(y_test, y_pred)
+print(model)

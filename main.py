@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn import random_projection
 import yfinance as yf
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 
 #import the data and create Dataframe

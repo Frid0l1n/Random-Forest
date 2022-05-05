@@ -1,11 +1,9 @@
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import random_projection
+from sklearn import metrics
 import yfinance as yf
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.metrics import r2_score
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import accuracy_score, r2_score
 
 #import the data and create Dataframe
 stock = input("choose stock: ")
@@ -57,6 +55,13 @@ n = 14
 sma = price_data['Close'].transform(lambda x: x.ewm(span = n).mean())
 price_data["SMA"] = sma
 
+#stochiastic oscilator
+X_stochastic = price_data["Close"]-price_data["Low14"]
+Y_stochiastic = price_data["High14"]-price_data["Low14"]
+
+K_percent = (X_stochastic/Y_stochiastic)*100
+price_data["%K"] = K_percent
+
 
 #create trainingset
 #copy price data to drop the close column
@@ -88,6 +93,7 @@ plt.legend(list_stocks)
 plt.grid()
 plt.show()
 
+#preparation for the analysis dropping Nan Lines
 price_data = price_data.dropna()
 print(price_data)
 
@@ -97,7 +103,7 @@ y = price_data[["Close"]]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-regressor = RandomForestRegressor(n_estimators=1000, random_state=0)
+regressor = RandomForestRegressor(n_estimators=10, random_state=0)
 regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 print(y_pred)

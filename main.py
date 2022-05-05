@@ -4,6 +4,7 @@ import yfinance as yf
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import accuracy_score, r2_score
+from sklearn.metrics import r2_score
 
 #import the data and create Dataframe
 stock = input("choose stock: ")

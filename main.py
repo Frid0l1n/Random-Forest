@@ -1,14 +1,22 @@
+from random import Random
 import matplotlib.pyplot as plt
+import pandas as pd
 from sklearn import metrics
 import yfinance as yf
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import accuracy_score, r2_score
 from sklearn.metrics import r2_score
 
-#import the data and create Dataframe
-list_stocks = []
 
+#get user input and create data frame
+stock = input("enter stock: ")
+time_span = input("enter time span: ")
+input_data = yf.Ticker(stock)
+price_data = input_data.history(period=time_span, interval="1d")
+
+"""
+list_stocks = []
 while True:
     stock = input("enter stock: ")
     list_stocks.append(stock.upper())
@@ -22,6 +30,7 @@ timespan = input("choose time span: ")
 for stock in list_stocks:
     input_data = yf.Ticker(stock)
     price_data = input_data.history(period=timespan, interval="1d")
+"""
 
 #format output 
 #pd.set_option("display.max_rows", None,"display.max_columns", None)

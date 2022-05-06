@@ -7,11 +7,21 @@ from sklearn.metrics import accuracy_score, r2_score
 from sklearn.metrics import r2_score
 
 #import the data and create Dataframe
-stock = input("choose stock: ")
-input_data = yf.Ticker(stock)
-timespan = input("choose time span: ")
-price_data = input_data.history(period = timespan)
+list_stocks = []
 
+while True:
+    stock = input("enter stock: ")
+    list_stocks.append(stock.upper())
+    if stock == "X":
+        break
+
+list_stocks.remove(list_stocks[len(list_stocks)-1])
+stock = " ".join(map(str, list_stocks))
+timespan = input("choose time span: ")
+
+for stock in list_stocks:
+    input_data = yf.Ticker(stock)
+    price_data = input_data.history(period=timespan, interval="1d")
 
 #format output 
 #pd.set_option("display.max_rows", None,"display.max_columns", None)
@@ -74,23 +84,23 @@ print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nHigh14\nL
 print("to leave visualize the data press X")
 
 #ask the user which data he wants to see
-list_stocks = []
+list_technical_analysis = []
 while True:
     choice = input('enter your choice: ')
-    list_stocks.append(choice)
+    list_technical_analysis.append(choice)
     if choice == "X":
         break
 
-list_stocks.remove(list_stocks[len(list_stocks)-1])
-plt_title = ", ".join(map(str, list_stocks))
+list_technical_analysis.remove(list_technical_analysis[len(list_technical_analysis)-1])
+plt_title = ", ".join(map(str, list_technical_analysis))
 print(plt_title)
 #create diagram
 plt.figure(figsize=(16,8))
 plt.title(plt_title)
-plt.plot(price_data[list_stocks], label = list_stocks)
+plt.plot(price_data[list_technical_analysis], label = list_technical_analysis)
 plt.xlabel("Date", fontsize = 11)
 plt.ylabel('Volume($)', fontsize=11)
-plt.legend(list_stocks)
+plt.legend(list_technical_analysis)
 plt.grid()
 plt.show()
 

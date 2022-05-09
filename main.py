@@ -1,7 +1,6 @@
-from random import Random
+import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn import metrics
 import yfinance as yf
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
@@ -14,23 +13,6 @@ stock = input("enter stock: ")
 time_span = input("enter time span: ")
 input_data = yf.Ticker(stock)
 price_data = input_data.history(period=time_span, interval="1d")
-
-"""
-list_stocks = []
-while True:
-    stock = input("enter stock: ")
-    list_stocks.append(stock.upper())
-    if stock == "X":
-        break
-
-list_stocks.remove(list_stocks[len(list_stocks)-1])
-stock = " ".join(map(str, list_stocks))
-timespan = input("choose time span: ")
-
-for stock in list_stocks:
-    input_data = yf.Ticker(stock)
-    price_data = input_data.history(period=timespan, interval="1d")
-"""
 
 #format output 
 #pd.set_option("display.max_rows", None,"display.max_columns", None)
@@ -118,15 +100,12 @@ price_data = price_data.dropna()
 print(price_data)
 
 #split data to attributes and labels
-X = price_data[["Open","High","Low","Volume","Dividends","Stock Splits","Change In Price", "RSI","Low14","High14","SMA"]]
+X = price_data[["Change In Price", "RSI","Low14","High14","SMA"]]
 y = price_data[["Close"]]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-regressor = RandomForestRegressor(n_estimators=10, random_state=0)
+regressor = RandomForestRegressor(n_estimators=4, random_state=0)
 regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 print(y_pred)
-
-model = r2_score(y_test, y_pred)
-print(model)

@@ -55,7 +55,7 @@ plt.show()
 print(data.price_data)
 
 #split data to attributes and labels
-X = data.price_data[["Change In Price", "RSI","Low14","High14"]]
+X = data.price_data[["Low","High","Close","Volume","Change In Price", "RSI","Low14","High14"]]
 y = data.price_data[["Close"]]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)

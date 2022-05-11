@@ -1,17 +1,18 @@
 import yfinance as yf
-import pandas
+import pandas_datareader as web
 import numpy as np
 
 #create class to acces data easy
 class data:
-    def __init__(self, input_stock, input_timespan):
+    def __init__(self, input_stock, input_start, input_end):
         #define the input variables for the price_data
         self.stock = input_stock
-        self.timespan = input_timespan
+        self.start = input_start
+        self.end = input_end
         #select the right stock from the class input
         price_data = yf.Ticker(input_stock)
         #acces the data about the stock
-        price_data = price_data.history(period=input_timespan)
+        price_data = web.DataReader(input_stock, data_source = "yahoo", start = input_start, end= input_end)
         #calculate the change in price using the python diff function
         price_data["Change In Price"] = price_data["Close"].diff()
 
@@ -59,11 +60,10 @@ class data:
         K_percent = A/B*100
 
         price_data["K%"] = K_percent
-        print(price_data)
-
+      
         price_data = price_data.dropna()
+        self.price_data = price_data
 
-x = input("enter stock: ")
-y = input("enter stock: ")
+        self.price_data = price_data
 
-data(x,y)
+        print(price_data)

@@ -65,4 +65,6 @@ Introduction to Machine Learning with python (Andreas C.Müller, Sahra Guido pub
 [Scikit-learn](https://scikit-learn.org/stable/)
 [Pandas](https://pandas.pydata.org/)
 https://levelup.gitconnected.com/random-forest-regression-209c0f354c84
+https://www.statology.org/pandas-moving-average-by-group/
+
 ###### Videos

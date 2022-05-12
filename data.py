@@ -54,7 +54,7 @@ class data:
 
 
         #stochiastic oscilator
-        A = price_data["Change In Price"]-price_data["Low14"]
+        A = price_data["Close"]-price_data["Low14"]
         B = price_data["High14"]-price_data["Low14"]
 
         K_percent = A/B*100
@@ -62,8 +62,7 @@ class data:
         price_data["K%"] = K_percent
       
         price_data = price_data.dropna()
-        self.price_data = price_data
 
         self.price_data = price_data
 
-        print(price_data)
+        self.price_data = price_data

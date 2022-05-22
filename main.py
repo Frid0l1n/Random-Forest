@@ -3,10 +3,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import yfinance as yf
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.metrics import r2_score
+from sklearn.ensemble import RandomForestRegressor
 from data import data
-
+import openpyxl as xls
 
 
 stock = input("enter stock: ")
@@ -24,32 +23,6 @@ print(data.price_data)
 training = data.price_data.copy()
 #drop price data
 training_data = training.drop("Close", axis = 1)
-#Visualize the Data
-print('Visualize data\nOpen\nHigh\nLow\nClose\nAdj Close\nVolume\nRSI\nHigh14\nLow14\nSMA')
-print("to leave visualize the data press X")
-
-"""
-#ask the user which data he wants to see
-list_technical_analysis = []
-while True:
-    choice = input('enter your choice: ')
-    list_technical_analysis.append(choice)
-    if choice == "X":
-        break
-
-list_technical_analysis.remove(list_technical_analysis[len(list_technical_analysis)-1])
-plt_title = ", ".join(map(str, list_technical_analysis))
-print(plt_title)
-#create diagram
-plt.figure(figsize=(16,8))
-plt.title(plt_title)
-plt.plot(data=[list_technical_analysis], label = list_technical_analysis)
-plt.xlabel("Date", fontsize = 11)
-plt.ylabel('Volume($)', fontsize=11)
-plt.legend(list_technical_analysis)
-plt.grid()
-plt.show()
-"""
 
 #preparation for the analysis dropping Nan Lines
 print(data.price_data)
@@ -58,9 +31,19 @@ print(data.price_data)
 X = data.price_data[["Low","High","Close","Volume","Change In Price", "RSI","Low14","High14"]]
 y = data.price_data[["Close"]]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
 
 regressor = RandomForestRegressor(n_estimators=4, random_state=0)
 regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 print(y_pred)
+
+#convert ndray to dataframe
+print(type(y_pred))
+df = pd.DataFrame(y_pred, columns= ["Prediction"])
+print(type(df))
+
+#write the output to excel file
+excel_file = pd.ExcelWriter("prediction.xlsx")
+df.to_excel(excel_file)
+excel_file.save()

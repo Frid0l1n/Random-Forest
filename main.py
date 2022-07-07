@@ -5,8 +5,6 @@ import yfinance as yf
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from data import data
-import openpyxl as xls
-
 
 stock = input("enter stock: ")
 print("The date should be in the form y-m-d")

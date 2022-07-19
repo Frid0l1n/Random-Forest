@@ -7,7 +7,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
 from data import data
 
-
 stock = input("enter stock: ")
 print("The date should be in the form y-m-d")
 start = input("enter start date: ")

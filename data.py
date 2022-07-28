@@ -1,5 +1,7 @@
 import yfinance as yf
 import pandas_datareader as web
+import numpy as np
+import pandas as pd
 
 #create class to acces data easy
 class data:
@@ -59,9 +61,14 @@ class data:
         K_percent = A/B*100
 
         price_data["K%"] = K_percent
+
+        close_groups = price_data["Close"].transform(lambda x : np.sign(x.diff()))
+
+        price_data["Prediction"] = close_groups
+        price_data.loc[price_data["Prediction"] == 0.0] = 1.0
         
         price_data = price_data.dropna()
-
+        
         self.price_data = price_data
 
         self.price_data = price_data

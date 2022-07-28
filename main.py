@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.metrics import accuracy_score
 import yfinance as yf
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -25,12 +26,18 @@ training_data = training.drop("Close", axis = 1)
 print(data.price_data)
 
 #split data to attributes and labels
-X = data.price_data[["Low","High","Close","Volume","Change In Price", "RSI","Low14","High14"]]
-y = data.price_data[["Close"]]
+X = data.price_data[["RSI","Low14","High14"]]
+y = data.price_data[["Prediction"]]
 
-X, y = make_classification(n_samples=60, n_features=4, n_informative=2, n_redundant=0, random_state=2, shuffle=False)
 
-Classifier = RandomForestClassifier(n_estimators=4, random_state=0)
-Classifier.fit(X,y)
-y_pred = Classifier.predict(X)
-print(y_pred)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+
+Classifier = RandomForestClassifier(n_estimators = 100, oob_score = True, criterion="gini", random_state=0)
+
+Classifier.fit(X_train, y_train.values.ravel())
+#fixed the code https://stackoverflow.com/questions/34165731/a-column-vector-y-was-passed-when-a-1d-array-was-expected
+
+y_pred = Classifier.predict(X_test)
+
+#evaluation of the model computing accuracy score
+print('Correct Prediction (%): ', accuracy_score(y_test, Classifier.predict(X_test), normalize = True) * 100.0)

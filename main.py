@@ -32,6 +32,8 @@ y = data.price_data[["Prediction"]]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
+feature_names = [f"feature {i}" for i in range(X.shape[1])]
+
 Classifier = RandomForestClassifier(n_estimators = 100, oob_score = True, criterion="gini", random_state=0)
 
 Classifier.fit(X_train, y_train.values.ravel())
@@ -42,10 +44,20 @@ y_pred = Classifier.predict(X_test)
 #evaluation of the model computing accuracy score
 print('Correct Prediction (%): ', accuracy_score(y_test, Classifier.predict(X_test), normalize = True) * 100.0)
 
-#feature importance
+#feature importance https://scikit-learn.org/stable/auto_examples/ensemble/plot_forest_importances.html
 start_time = time.time()
 importances = Classifier.feature_importances_
 std = np.std([tree.feature_importances_ for tree in Classifier.estimators_], axis=0)
 elapsed_time = time.time() - start_time
 
 print(f"Elapsed time to compute feature importances: {elapsed_time:.3f} seconds")
+
+forest_importances = pd.Series(importances, index=feature_names)
+
+fig, ax = plt.subplots()
+forest_importances.plot.bar(yerr=std, ax=ax)
+ax.set_title("Feature importances using MDI")
+ax.set_ylabel("Mean decrease in impurity")
+fig.tight_layout()
+
+plt.show()

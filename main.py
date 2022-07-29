@@ -5,15 +5,15 @@ from sklearn.metrics import accuracy_score
 import yfinance as yf
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import make_classification
 from data import data
+import time
 
 stock = input("enter stock: ")
 print("The date should be in the form y-m-d")
-start = input("enter start date: ")
-end = input("enter end date: ")
+start_date = input("enter start date: ")
+end_date = input("enter end date: ")
 
-data = data(stock, start, end)
+data = data(stock, start_date, end_date)
 
 
 #create trainingset
@@ -26,7 +26,7 @@ training_data = training.drop("Close", axis = 1)
 print(data.price_data)
 
 #split data to attributes and labels
-X = data.price_data[["RSI","Low14","High14"]]
+X = data.price_data[["RSI","Low14","High14", "K%", "Open", "Close", "Volume", "Adj Close"]]
 y = data.price_data[["Prediction"]]
 
 
@@ -41,3 +41,11 @@ y_pred = Classifier.predict(X_test)
 
 #evaluation of the model computing accuracy score
 print('Correct Prediction (%): ', accuracy_score(y_test, Classifier.predict(X_test), normalize = True) * 100.0)
+
+#feature importance
+start_time = time.time()
+importances = Classifier.feature_importances_
+std = np.std([tree.feature_importances_ for tree in Classifier.estimators_], axis=0)
+elapsed_time = time.time() - start_time
+
+print(f"Elapsed time to compute feature importances: {elapsed_time:.3f} seconds")

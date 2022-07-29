@@ -5,15 +5,15 @@ import pandas as pd
 
 #create class to acces data easy
 class data:
-    def __init__(self, input_stock, input_start, input_end):
+    def __init__(self, input_stock, input_start_date, input_end_date):
         #define the input variables for the price_data
         self.stock = input_stock
-        self.start = input_start
-        self.end = input_end
+        self.start = input_start_date
+        self.end = input_end_date
         #select the right stock from the class input
         price_data = yf.Ticker(input_stock)
         #acces the data about the stock
-        price_data = web.DataReader(input_stock, data_source = "yahoo", start = input_start, end= input_end)
+        price_data = web.DataReader(input_stock, data_source = "yahoo", start = input_start_date, end= input_end_date)
         #calculate the change in price using the python diff function
         price_data["Change In Price"] = price_data["Close"].diff()
 

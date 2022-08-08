@@ -25,7 +25,7 @@ training_data = training.drop("Close", axis = 1)
 print(data.price_data)
 
 #split data to attributes and labels
-X = data.price_data[["RSI","Low14","High14", "K%", "Open", "Close", "Volume", "Adj Close"]]
+X = data.price_data[["Volume", "Open", "Close", "RSI", "K%"]]
 y = data.price_data[["Prediction"]]
 
 

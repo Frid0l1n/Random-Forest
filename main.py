@@ -40,14 +40,15 @@ Classifier.fit(X_train, y_train.values.ravel())
 
 y_pred = Classifier.predict(X_test)
 
-#evaluation of the model computing accuracy score
-print('Correct Prediction (%): ', accuracy_score(y_test, Classifier.predict(X_test), normalize = True) * 100.0)
 
 #feature importance https://scikit-learn.org/stable/auto_examples/ensemble/plot_forest_importances.html
 start_time = time.time()
 importances = Classifier.feature_importances_
 std = np.std([tree.feature_importances_ for tree in Classifier.estimators_], axis=0)
 elapsed_time = time.time() - start_time
+
+#evaluation of the model computing accuracy score
+print('Correct Prediction (%): ', accuracy_score(y_test, Classifier.predict(X_test), normalize = True) * 100.0)
 
 print(f"Elapsed time to compute feature importances: {elapsed_time:.3f} seconds")
 

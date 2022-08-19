@@ -11,7 +11,9 @@ stock = input("enter stock: ")
 print("The date should be in the form y-m-d")
 start_date = input("enter start date: ")
 end_date = input("enter end date: ")
+print("\n")
 
+#reading data for calculation
 data = data(stock, start_date, end_date)
 
 
@@ -20,9 +22,6 @@ data = data(stock, start_date, end_date)
 training = data.price_data.copy()
 #drop price data
 training_data = training.drop("Close", axis = 1)
-
-#preparation for the analysis dropping Nan Lines
-print(data.price_data)
 
 #split data to attributes and labels
 X = data.price_data[["Volume", "Open", "Close", "RSI", "K%"]]
@@ -54,10 +53,6 @@ print(f"Elapsed time to compute feature importances: {elapsed_time:.3f} seconds"
 
 forest_importances = pd.Series(importances, index=feature_names)
 
-fig, ax = plt.subplots()
-forest_importances.plot.bar(yerr=std, ax=ax)
-ax.set_title("Feature importances using MDI")
-ax.set_ylabel("Mean decrease in impurity")
-fig.tight_layout()
+print(forest_importances)
 
-plt.show()
+print(data.price_data)

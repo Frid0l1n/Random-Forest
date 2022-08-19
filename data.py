@@ -66,20 +66,6 @@ class data:
 
         price_data["Prediction"] = close_groups
         price_data.loc[price_data["Prediction"] == 0.0] = 1.0
-
-        #OBV On Balance Volume
-
-        OBV = []
-        OBV.append(0)
-        for i in range(1, len(price_data.Close)):
-                if price_data.Close[i] > price_data.Close[i-1]: #If the closing price is above the prior close price 
-                    OBV.append(OBV[-1] + price_data.Volume[i]) #then: Current OBV = Previous OBV + Current Volume
-                elif price_data.Close[i] < price_data.Close[i-1]:
-                        OBV.append( OBV[-1] - price_data.Volume[i])
-                else:
-                    OBV.append(OBV[-1])
-
-        price_data["OBV"] = OBV
         
 
         price_data = price_data.dropna()

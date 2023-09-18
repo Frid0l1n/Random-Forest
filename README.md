@@ -1,70 +1,70 @@
-# Random forest for financial machine learning
+# Random Forest for Financial Machine Learning
+## Version 1.0.0 (Publication Date: 09-18-2023)
 
-**Version 1.0.0**
-# Table of contents
-[Data preperation](#data-preperation)
-[Modelling](#modelling)
- -[Random Forest](#random-forest)
-[Sources](#sources)
- -[Books](#books)
- -[Websites](#websites)
- -[Videos](#videos)
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Data Preparation](#data-preparation)
+   - [Types of Financial Data](#types-of-financial-data)
+   - [Data Preparation Techniques](#data-preparation-techniques)
+3. [Machine Learning Methods](#machine-learning-methods)
+   - [Supervised Learning](#supervised-learning)
+   - [Unsupervised Learning](#unsupervised-learning)
+4. [Random Forest](#random-forest)
+   - [Understanding Decision Trees and Overfitting](#understanding-decision-trees-and-overfitting)
+   - [Introduction to Random Forest](#introduction-to-random-forest)
+5. [Model Evaluation and Error Analysis](#model-evaluation-and-error-analysis)
+6. [Sources](#sources)
+   - [Books](#books)
+   - [Websites](#websites)
+   - [Videos](#videos)
 
-My interest in machine Learning, data analytics and the Stockmarket led me to choose the topic financial machine learning for my final project of High School. I've no experience with machine learning but i'll try my best and document the whole process of building the model. The financial industry is growing day by day and is looking for ways to use machine learning for managing the risk of loosing money.
+## Introduction
+My interest in machine learning, data analytics, and the stock market led me to choose financial machine learning as the topic for my high school final project. Despite having no prior experience with machine learning, I am committed to giving my best effort and documenting the entire process of building the model. The financial industry is evolving rapidly and seeks innovative ways to utilize machine learning for managing the risk of financial losses.
 
+## Data Preparation
+There are four essential types of financial data:
 
-## Data preperation
-There are four essential types of financial data.
-* [Fundamental data](https://www.investopedia.com/terms/f/fundamentalanalysis.asp) contains information that can be found in regulator filings and buisnes analytics.    Accaunting data which is reported quarterly. Fundamental data is extremly regularized and only in low frequency available but it maybe useful in combination with other data types.
+* **Fundamental Data**: Contains information found in regulatory filings and business analytics, reported quarterly. While fundamental data is highly regularized and available at a low frequency, it can be valuable when combined with other data types.
 
-* [Market data](https://www.ig.com/en/glossary-trading-terms/market-data-definition) includes all trading activity that takes place in an exchange. Every market participant leaves a characteristic footprint in the trading records. As an example TWAP algorithms leave a very particular footprint.
+* **Market Data**: Encompasses all trading activities on exchanges, each leaving a characteristic footprint in the trading records. For instance, TWAP algorithms (Time-Weighted Average Price algorithms) leave distinct footprints.
 
-* Analytics is already processed for you in a particular way. Many investment banks are selling these valuable indepth analisys of various companys. Those banks or companys analyse the activities, competition, outlook etc. The signal is already extracted from the raw data.
+* **Analytics**: Processed data providing in-depth analysis of various companies. Investment banks often sell this valuable analysis, which includes assessments of activities, competition, outlook, etc., with the signal already extracted from raw data.
 
-* Alternative Data is mainly produced by individuals, [Wallstreetbets](https://www.reddit.com/r/wallstreetbets) is such an alternative data producer these guys are pushing litle stocks as an example 'Gamestop'. Alternative data is also produced by different journals or google searches.
+* **Alternative Data**: Mainly produced by individuals or communities like [Wallstreetbets](https://www.reddit.com/r/wallstreetbets) who discuss and influence lesser-known stocks like 'Gamestop'. Alternative data is also sourced from various journals or Google searches.
 
-| Fundamental data| Market Data                   | Analytics               | Alternative Data     |
-| --------------- | ----------------------------- | --------------------    | ---------------------|
-| Assets          | Price/yield/implied volatility| Analyst recommendations |Satellite/CCTV images |
-| Liabilities     | Volume                        | Credit ratings          |Google searches       |
-| Sales           | Dividend/coupons              | Earning expectations    |Socialmedia chats     |
-| Cost/earnings   | Open interest                 | News sentiments         |Metadata              |
-| Macro variables | Quotes/cancellations          | ....                    |....                  |
-| ....            | ....                          |                         |                      |
+For data preparation, we utilize the open-source Python library [pandas](https://pandas.pydata.org/docs/index.html). We fetch data from Yahoo Finance, an excellent source for reliable stock market movements and prices in the form of a CSV file. Most ML algorithms require data in a regularized format, often assuming a tabular representation of the extracted data. Given the dynamic nature of the market, processing the data at constant time intervals isn't optimal. Therefore, we log the data at regular time intervals, such as every minute or every day. Our dataset includes Date, Volume, Open, Close, High, Low, and Adj. Close. We further calculate technical indicators like RSI, Stochastic Oscillator, William Percent Range, and Moving Average Convergence Divergence to gather insights into future stock movements. To visualize stock movements, we employ the [matplotlib](https://matplotlib.org/) library.
 
-For data preparation we use the open source python library [pandas](https://pandas.pydata.org/docs/index.html). To get the data we use yahoo finance, it's the best way to aquire reliable stock market movements and prices in form of a csv file. Most of the ML algorithms need data in a regularized format. Most of the algorithms assume a table representation of the extracted data. It isn't the smartest way to process the data in a constant time intervall because the market couldn't be represented as a constat time intervall system (Open hour is mostly more active than the hour in the noon, at midnight mostly futures are traded by CPU). The data shuld be loged in a time intervall this means every minute or every day. Our data set incluedes Date, Volume, Open, Close High, Low and Adj. Close. The File contains various columns we want to calculate the RSI, Stochiastic Oscilator, William percent range as well as the Moving Average Convergence Divergence. These are all technical indicators and should provide us various information about the future stock movement. For the visualization of the stock movement we used the library [matplotlib](https://matplotlib.org/).
-
-# Types of machine learning methods
+# Types of Machine Learning Methods
 ### Supervised Learning
 * Classification
 * Regression
+
 ### Unsupervised Learning
+* Clustering
 
-## Modelling
-ML models generally suffer from three main errors
+## Common Errors in ML Models
+ML models often suffer from three main errors:
 
-* Bias: This error is caused by unrealistic assumptions. When Bias is high the algorithm failed to recognize important relations between features and outcomes. In this situation, the algorithm is said to be ["underfit"](https://www.ibm.com/cloud/learn/underfitting)
+* **Bias**: Arises from unrealistic assumptions, causing the algorithm to overlook crucial relations between features and outcomes. High bias leads to the algorithm being "underfit" ([Learn more](https://www.ibm.com/cloud/learn/underfitting)).
 
-* Variance: This error is caused by sensivity to small changes in the data set. When the variance is high, the algorithm has overfit the dataset. Minimal changes in the dataset can produce widly different predictions. Rather than modeelling the gerneral patzterns in the dataset, the algorithm has mistaken [noise](https://deepchecks.com/glossary/noise-in-machine-learning/) with signal.
+* **Variance**: Results from sensitivity to minor dataset changes, causing the algorithm to overfit the dataset. High variance leads to significantly different predictions with minimal dataset alterations, mistaking noise for a signal.
 
-* Noise: This error is caused by the variance of the observed values, unpredictable changes or measurement errors. Can't be explained by any model.
+* **Noise**: Caused by the variance of observed values, unpredictable changes, or measurement errors, impossible to be explained by any model.
 
-#### Random Forest
-Decision trees are known to be prone to overfitting this means the variance of the forecast is really high. The random forest (RF) method was designed to produce ensemble forecast with lower variance.
+## Random Forest
+Decision trees are known to be prone to overfitting, resulting in high forecast variance. The random forest (RF) method was designed to produce ensemble forecasts with lower variance.
 
-#### Sources
-###### Books
-Advances in Financial Machine Learning (Marcos Lopez de Prado published 23. January 2018)
+## Sources
+### Books
+1. [Advances in Financial Machine Learning](https://www.amazon.com/Advances-Financial-Machine-Learning-Marcos/dp/1119482089) (Marcos Lopez de Prado, published 23rd January 2018)
+2. [Applied Quantitative Finance using Python for Financial Analysis](https://www.amazon.com/Applied-Quantitative-Finance-Financial-Analysis/dp/1803231879) (Mauricio Garita, published 3rd September 2021)
+3. [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://web.stanford.edu/~hastie/Papers/ESLII.pdf) (Trevor Hastie, Robert Tibshirani, Jerome Friedman, 2001)
+4. [Introduction to Machine Learning with Python](https://www.amazon.com/Introduction-Machine-Learning-Python-Scientists/dp/1449369413) (Andreas C. Müller, Sarah Guido, published 2016)
 
-Applied quantitative finance using python for financial analysis (Mauricio Garita published 3. September 2021)
+### Websites
+1. [Scikit-learn](https://scikit-learn.org/stable/)
+2. [Pandas](https://pandas.pydata.org/)
+3. [Random Forest Regression](https://levelup.gitconnected.com/random-forest-regression-209c0f354c84)
+4. [Pandas Moving Average by Group](https://www.statology.org/pandas-moving-average-by-group/)
 
-The elements of statistical learning Data mining, Inference and Prediction (Trevor Hastie, Robert Tibshirani, Jerome Friedman 2001)
-
-Introduction to Machine Learning with python (Andreas C.Müller, Sahra Guido published 2016)
-###### Websites
-[Scikit-learn](https://scikit-learn.org/stable/)
-[Pandas](https://pandas.pydata.org/)
-https://levelup.gitconnected.com/random-forest-regression-209c0f354c84
-https://www.statology.org/pandas-moving-average-by-group/
-
-###### Videos
+### Videos

@@ -24,6 +24,8 @@ My interest in machine learning, data analytics, and the stock market led me to 
 ## Data Preparation
 There are four essential types of financial data:
 
+### Types of Financial Data
+
 * **Fundamental Data**: Contains information found in regulatory filings and business analytics, reported quarterly. While fundamental data is highly regularized and available at a low frequency, it can be valuable when combined with other data types.
 
 * **Market Data**: Encompasses all trading activities on exchanges, each leaving a characteristic footprint in the trading records. For instance, TWAP algorithms (Time-Weighted Average Price algorithms) leave distinct footprints.
@@ -32,9 +34,14 @@ There are four essential types of financial data:
 
 * **Alternative Data**: Mainly produced by individuals or communities like [Wallstreetbets](https://www.reddit.com/r/wallstreetbets) who discuss and influence lesser-known stocks like 'Gamestop'. Alternative data is also sourced from various journals or Google searches.
 
+### Data Preparation Thechinques
+
 For data preparation, we utilize the open-source Python library [pandas](https://pandas.pydata.org/docs/index.html). We fetch data from Yahoo Finance, an excellent source for reliable stock market movements and prices in the form of a CSV file. Most ML algorithms require data in a regularized format, often assuming a tabular representation of the extracted data. Given the dynamic nature of the market, processing the data at constant time intervals isn't optimal. Therefore, we log the data at regular time intervals, such as every minute or every day. Our dataset includes Date, Volume, Open, Close, High, Low, and Adj. Close. We further calculate technical indicators like RSI, Stochastic Oscillator, William Percent Range, and Moving Average Convergence Divergence to gather insights into future stock movements. To visualize stock movements, we employ the [matplotlib](https://matplotlib.org/) library.
 
-# Types of Machine Learning Methods
+# Machine Learning Methods
+
+There are Various Machine Learning Algorithms out there, as you probably know the algorithm which is used in this Project is also known as a Random Forest Classifier. More about that in the subchapter [Supervised Learning](#supervised-learning).
+
 ### Supervised Learning
 * Classification
 * Regression
@@ -52,7 +59,13 @@ ML models often suffer from three main errors:
 * **Noise**: Caused by the variance of observed values, unpredictable changes, or measurement errors, impossible to be explained by any model.
 
 ## Random Forest
-Decision trees are known to be prone to overfitting, resulting in high forecast variance. The random forest (RF) method was designed to produce ensemble forecasts with lower variance.
+Decision trees are known to be prone to overfitting, resulting in high forecast variance. The Random Forest (RF) method was designed to produce ensemble forecasts with lower variance.
+
+### Understanding Decision Trees and Overfitting
+
+### Introduction to Decision Random Forest
+
+# Model Evaluation and Error Analysis
 
 ## Sources
 ### Books

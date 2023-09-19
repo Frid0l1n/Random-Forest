@@ -34,7 +34,7 @@ There are four essential types of financial data:
 
 * **Alternative Data**: Mainly produced by individuals or communities like [Wallstreetbets](https://www.reddit.com/r/wallstreetbets) who discuss and influence lesser-known stocks like 'Gamestop'. Alternative data is also sourced from various journals or Google searches.
 
-### Data Preparation Thechinques
+### Data Preparation Techniques
 
 For data preparation, we utilize the open-source Python library [pandas](https://pandas.pydata.org/docs/index.html). We fetch data from Yahoo Finance, an excellent source for reliable stock market movements and prices in the form of a CSV file. Most ML algorithms require data in a regularized format, often assuming a tabular representation of the extracted data. Given the dynamic nature of the market, processing the data at constant time intervals isn't optimal. Therefore, we log the data at regular time intervals, such as every minute or every day. Our dataset includes Date, Volume, Open, Close, High, Low, and Adj. Close. We further calculate technical indicators like RSI, Stochastic Oscillator, William Percent Range, and Moving Average Convergence Divergence to gather insights into future stock movements. To visualize stock movements, we employ the [matplotlib](https://matplotlib.org/) library.
 

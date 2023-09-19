@@ -63,7 +63,7 @@ Decision trees are known to be prone to overfitting, resulting in high forecast 
 
 ### Understanding Decision Trees and Overfitting
 
-### Introduction to Decision Random Forest
+### Introduction to Random Forest
 
 # Model Evaluation and Error Analysis
 

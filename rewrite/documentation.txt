@@ -1,0 +1,4 @@
+Data preparation
+=> which data is prepared for the data sheet
+    => The goal is to include fundamental data but it is really hard to access these => Technical analysis
+    => Technical analysis is trying to predict the probability of feature movements, using data from the past and present

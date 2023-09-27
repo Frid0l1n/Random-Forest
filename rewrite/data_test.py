@@ -1,5 +1,8 @@
 import yfinance as yf
+import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns; sns.set()
+from matplotlib.widgets import CheckButtons
 
 # Get stock to analyze
 stock = input("Enter stock symbol: ")
@@ -37,4 +40,46 @@ data['ROC'] = (data['Close'].pct_change(periods=period)) * 100
 # Drop rows with NaN values
 data.dropna(inplace=True)
 
-print(data)
+#list data for selection
+data_list = [data["Open"], data["Close"], data["Low"], data["High"], data["Adj Close"], data["Daily_Return"], data["SMA_50"], data["Standard_Deviation"], data["Upper_Band"], data["Lower_Band"], data["EMA_12"], data["MACD_Signal_Line"], data['VWAP']]
+
+plot = input("Do you want to plot the data Y/N: ")
+
+if plot.upper() == "Y":
+    fig, ax = plt.subplots(figsize=(12, 8))
+    lines = []
+    labels = []
+
+    for idx, dataset in enumerate(data_list):
+        line, = plt.plot(data.index, dataset, label=data_list[idx].name)
+        lines.append(line)
+        labels.append(data_list[idx].name)
+
+    plt.xlabel('Date')
+    plt.ylabel('Value')
+    plt.title(f'Stock Data {stock}')
+    plt.legend()
+
+    # Create check buttons to toggle visibility of each line
+    ax_check = plt.axes([0.85, 0.1, 0.15, 0.8])
+    check = CheckButtons(ax_check, labels, [True] * len(labels))
+
+    def func(label):
+        index = labels.index(label)
+        lines[index].set_visible(not lines[index].get_visible())
+        plt.draw()
+
+    check.on_clicked(func)
+    plt.show()
+else:
+    print("Next step")
+
+#ask if they want to create a csv file or print the data to console
+file = input("Do you want to create a csv file or print the data to the console Y/N:")
+
+if file.upper() == "Y":
+    df = pd.DataFrame(data)
+    csv_file_path = f'{stock}.csv'
+    df.to_csv(csv_file_path)
+else:
+    print(type(data))

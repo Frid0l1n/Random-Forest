@@ -86,8 +86,6 @@ class data:
             df.to_csv(csv_file_path)
         else:
             print(data)
-
-stock = input("enter stock: ")
-start_date = input("enter start date it should have this form y-mo-d: ")
-end_date = input("enter start date it should have this form y-mo-d: ")
-data(stock= stock, start_date=start_date, end_date=end_date)
+        
+        def get_data(self):
+            return data

@@ -4,82 +4,90 @@ import pandas as pd
 import seaborn as sns; sns.set()
 from matplotlib.widgets import CheckButtons
 
-# Get stock to analyze
-stock = input("Enter stock symbol: ")
-stock_data = yf.Ticker(f"{stock}")
+class data:
 
-# Fetch historical stock data using yfinance
-data = yf.download(stock, start="2017-01-01", end="2019-04-30")
+    def __init__(self, stock, start_date, end_date):
+        self.stock = stock
+        self.start_date = start_date
+        self.end_date = end_date
 
-# Calculate daily return
-data["Daily_Return"] = data["Close"].pct_change() * 100
+        # Fetch historical stock data using yfinance
+        data = yf.download(stock, start=start_date, end=end_date)
 
-# Calculate a 50-day simple moving average with Bollinger Bands
-data['SMA_50'] = data['Close'].rolling(window=50).mean()
+        # Calculate daily return
+        data["Daily_Return"] = data["Close"].pct_change() * 100
 
-# Calculate standard deviation
-data["Standard_Deviation"] = data["Close"].rolling(window=50).std()
+        # Calculate a 50-day simple moving average with Bollinger Bands
+        data['SMA_50'] = data['Close'].rolling(window=50).mean()
 
-# Calculate Bollinger Bands
-data['Upper_Band'] = data['SMA_50'] + (data["Standard_Deviation"] * 2)
-data['Lower_Band'] = data['SMA_50'] - (data["Standard_Deviation"] * 2)
+        # Calculate standard deviation
+        data["Standard_Deviation"] = data["Close"].rolling(window=50).std()
 
-# Calculate a 12-day exponential moving average
-data['EMA_12'] = data['Close'].ewm(span=12, adjust=False).mean()
-data['EMA_26'] = data['Close'].ewm(span=26, adjust=False).mean()
+        # Calculate Bollinger Bands
+        data['Upper_Band'] = data['SMA_50'] + (data["Standard_Deviation"] * 2)
+        data['Lower_Band'] = data['SMA_50'] - (data["Standard_Deviation"] * 2)
 
-data["MACD_Signal_Line"] = data["EMA_12"] - data["EMA_26"]
+        # Calculate a 12-day exponential moving average
+        data['EMA_12'] = data['Close'].ewm(span=12, adjust=False).mean()
+        data['EMA_26'] = data['Close'].ewm(span=26, adjust=False).mean()
 
-#VWAP
-data['VWAP'] = (data['Close'] * data['Volume']).cumsum() / data['Volume'].cumsum()
+        data["MACD_Signal_Line"] = data["EMA_12"] - data["EMA_26"]
 
-# Calculate Rate of Change (ROC)
-period = 14  # You can adjust this period as needed
-data['ROC'] = (data['Close'].pct_change(periods=period)) * 100
+        #VWAP
+        data['VWAP'] = (data['Close'] * data['Volume']).cumsum() / data['Volume'].cumsum()
 
-# Drop rows with NaN values
-data.dropna(inplace=True)
+        # Calculate Rate of Change (ROC)
+        period = 14  # You can adjust this period as needed
+        data['ROC'] = (data['Close'].pct_change(periods=period)) * 100
 
-#list data for selection
-data_list = [data["Open"], data["Close"], data["Low"], data["High"], data["Adj Close"], data["Daily_Return"], data["SMA_50"], data["Standard_Deviation"], data["Upper_Band"], data["Lower_Band"], data["EMA_12"], data["MACD_Signal_Line"], data['VWAP']]
+        # Drop rows with NaN values
+        data.dropna(inplace=True)
 
-plot = input("Do you want to plot the data Y/N: ")
+        #list data for selection
+        data_list = [data["Open"], data["Close"], data["Low"], data["High"], data["Adj Close"], data["Daily_Return"], data["SMA_50"], data["Standard_Deviation"], data["Upper_Band"], data["Lower_Band"], data["EMA_12"], data["MACD_Signal_Line"], data['VWAP']]
 
-if plot.upper() == "Y":
-    fig, ax = plt.subplots(figsize=(12, 8))
-    lines = []
-    labels = []
+        plot = input("Do you want to plot the data Y/N: ")
 
-    for idx, dataset in enumerate(data_list):
-        line, = plt.plot(data.index, dataset, label=data_list[idx].name)
-        lines.append(line)
-        labels.append(data_list[idx].name)
+        if plot.upper() == "Y":
+            fig, ax = plt.subplots(figsize=(12, 8))
+            lines = []
+            labels = []
 
-    plt.xlabel('Date')
-    plt.ylabel('Value')
-    plt.title(f'Stock Data {stock}')
-    plt.legend()
+            for idx, dataset in enumerate(data_list):
+                line, = plt.plot(data.index, dataset, label=data_list[idx].name)
+                lines.append(line)
+                labels.append(data_list[idx].name)
 
-    # Create check buttons to toggle visibility of each line
-    ax_check = plt.axes([0.85, 0.1, 0.15, 0.8])
-    check = CheckButtons(ax_check, labels, [True] * len(labels))
+            plt.xlabel('Date')
+            plt.ylabel('Value')
+            plt.title(f'Stock Data {stock}')
+            plt.legend()
 
-    def func(label):
-        index = labels.index(label)
-        lines[index].set_visible(not lines[index].get_visible())
-        plt.draw()
+            # Create check buttons to toggle visibility of each line
+            ax_check = plt.axes([0.85, 0.1, 0.15, 0.8])
+            check = CheckButtons(ax_check, labels, [True] * len(labels))
 
-    check.on_clicked(func)
-    plt.show()
-else:
-    print("Next step")
+            def func(label):
+                index = labels.index(label)
+                lines[index].set_visible(not lines[index].get_visible())
+                plt.draw()
 
-#ask if they want to create a csv file or print the data to console
-file = input("Do you want to create a csv file or print the data to the console Y/N:")
+            check.on_clicked(func)
+            plt.show()
+        else:
+            print("Next step")
 
-if file.upper() == "Y":
-    df = pd.DataFrame(data)
-    csv_file_path = f'{stock}.csv'
-    df.to_csv(csv_file_path)
-else:
-    print(type(data))
+        #ask if they want to create a csv file or print the data to console
+        file = input("Do you want to create a csv Y/N:")
+
+        if file.upper() == "Y":
+            df = pd.DataFrame(data)
+            csv_file_path = f'{stock}.csv'
+            df.to_csv(csv_file_path)
+        else:
+            print(data)
+
+stock = input("enter stock: ")
+start_date = input("enter start date it should have this form y-mo-d: ")
+end_date = input("enter start date it should have this form y-mo-d: ")
+data(stock= stock, start_date=start_date, end_date=end_date)

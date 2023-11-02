@@ -8,6 +8,6 @@ end_date = input("enter start date it should have this form y-mo-d: ")
 stock_data_instance = data(stock= stock, start_date=start_date, end_date=end_date)
 
 #Accessing the data to work with it
-training_data = stock_data_instance.get_data()
 
-print(training_data["Close"])
+
+print(data)

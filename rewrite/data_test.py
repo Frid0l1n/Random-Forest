@@ -87,5 +87,4 @@ class data:
         else:
             print(data)
         
-        def get_data(self):
-            return data
+        return data

@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns; sns.set()
 from matplotlib.widgets import CheckButtons
+import os
 
 class data:
 
@@ -82,8 +83,15 @@ class data:
 
         if file.upper() == "Y":
             df = pd.DataFrame(data)
-            csv_file_path = f'{stock}.csv'
-            df.to_csv(csv_file_path)
+            file_name = f'{stock}.csv'
+
+            # Save the CSV file directly
+            df.to_csv(file_name, index=False)
+
+            # Specify the directory path separately for os.path.join
+            save_directory = "/data"
+            save_file = os.path.join(save_directory, file_name)
+            print(save_file)
         else:
             print(data)
         

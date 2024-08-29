@@ -5,48 +5,41 @@ import seaborn as sns; sns.set()
 from matplotlib.widgets import CheckButtons
 import os
 
-class data:
-
+class Data:
     def __init__(self, stock, start_date, end_date):
         self.stock = stock
         self.start_date = start_date
         self.end_date = end_date
 
         # Fetch historical stock data using yfinance
-        data = yf.download(stock, start=start_date, end=end_date)
+        self.data = yf.download(stock, start=start_date, end=end_date)
 
-        # Calculate daily return
-        data["Daily_Return"] = data["Close"].pct_change() * 100
-
-        # Calculate a 50-day simple moving average with Bollinger Bands
-        data['SMA_50'] = data['Close'].rolling(window=50).mean()
-
-        # Calculate standard deviation
-        data["Standard_Deviation"] = data["Close"].rolling(window=50).std()
-
-        # Calculate Bollinger Bands
-        data['Upper_Band'] = data['SMA_50'] + (data["Standard_Deviation"] * 2)
-        data['Lower_Band'] = data['SMA_50'] - (data["Standard_Deviation"] * 2)
-
-        # Calculate a 12-day exponential moving average
-        data['EMA_12'] = data['Close'].ewm(span=12, adjust=False).mean()
-        data['EMA_26'] = data['Close'].ewm(span=26, adjust=False).mean()
-
-        data["MACD_Signal_Line"] = data["EMA_12"] - data["EMA_26"]
-
-        #VWAP
-        data['VWAP'] = (data['Close'] * data['Volume']).cumsum() / data['Volume'].cumsum()
-
-        # Calculate Rate of Change (ROC)
-        period = 14  # You can adjust this period as needed
-        data['ROC'] = (data['Close'].pct_change(periods=period)) * 100
+        # Calculate indicators
+        self.data["Daily_Return"] = self.data["Close"].pct_change() * 100
+        self.data['SMA_50'] = self.data['Close'].rolling(window=50).mean()
+        self.data["Standard_Deviation"] = self.data["Close"].rolling(window=50).std()
+        self.data['Upper_Band'] = self.data['SMA_50'] + (self.data["Standard_Deviation"] * 2)
+        self.data['Lower_Band'] = self.data['SMA_50'] - (self.data["Standard_Deviation"] * 2)
+        self.data['EMA_12'] = self.data['Close'].ewm(span=12, adjust=False).mean()
+        self.data['EMA_26'] = self.data['Close'].ewm(span=26, adjust=False).mean()
+        self.data["MACD_Signal_Line"] = self.data["EMA_12"] - self.data["EMA_26"]
+        self.data['VWAP'] = (self.data['Close'] * self.data['Volume']).cumsum() / self.data['Volume'].cumsum()
+        period = 14
+        self.data['ROC'] = (self.data['Close'].pct_change(periods=period)) * 100
 
         # Drop rows with NaN values
-        data.dropna(inplace=True)
+        self.data.dropna(inplace=True)
 
-        #list data for selection
-        data_list = [data["Open"], data["Close"], data["Low"], data["High"], data["Adj Close"], data["Daily_Return"], data["SMA_50"], data["Standard_Deviation"], data["Upper_Band"], data["Lower_Band"], data["EMA_12"], data["MACD_Signal_Line"], data['VWAP']]
+        # List of data for selection
+        self.data_list = [self.data["Open"], self.data["Close"], self.data["Low"], self.data["High"], self.data["Adj Close"], self.data["Daily_Return"], self.data["SMA_50"], self.data["Standard_Deviation"], self.data["Upper_Band"], self.data["Lower_Band"], self.data["EMA_12"], self.data["MACD_Signal_Line"], self.data['VWAP']]
 
+        # Plotting
+        self.plot_data()
+
+        # Save CSV
+        self.save_csv()
+
+    def plot_data(self):
         plot = input("Do you want to plot the data Y/N: ")
 
         if plot.upper() == "Y":
@@ -54,14 +47,14 @@ class data:
             lines = []
             labels = []
 
-            for idx, dataset in enumerate(data_list):
-                line, = plt.plot(data.index, dataset, label=data_list[idx].name)
+            for idx, dataset in enumerate(self.data_list):
+                line, = plt.plot(self.data.index, dataset, label=dataset.name)
                 lines.append(line)
-                labels.append(data_list[idx].name)
+                labels.append(dataset.name)
 
             plt.xlabel('Date')
             plt.ylabel('Value')
-            plt.title(f'Stock Data {stock}')
+            plt.title(f'Stock Data {self.stock}')
             plt.legend()
 
             # Create check buttons to toggle visibility of each line
@@ -78,21 +71,18 @@ class data:
         else:
             print("Next step")
 
-        #ask if they want to create a csv file or print the data to console
+    def save_csv(self):
         file = input("Do you want to create a csv Y/N:")
 
         if file.upper() == "Y":
-            df = pd.DataFrame(data)
-            file_name = f'{stock}.csv'
+            file_name = f'{self.stock}.csv'
+            self.data.to_csv(file_name, index=False)
 
-            # Save the CSV file directly
-            df.to_csv(file_name, index=False)
-
-            # Specify the directory path separately for os.path.join
-            save_directory = "/data"
+            # Optionally specify a directory
+            save_directory = "./data"
+            os.makedirs(save_directory, exist_ok=True)
             save_file = os.path.join(save_directory, file_name)
-            print(save_file)
-        else:
-            print(data)
-        
-        return None
+            print(f"CSV saved to: {save_file}")
+
+    def get_data(self):
+        return self.data

@@ -95,4 +95,4 @@ class data:
         else:
             print(data)
         
-        return data
+        return None

@@ -1,21 +1,48 @@
 from data_test import data
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+import pandas as pd
+import yfinance as yf
 
-#import data from data.py
-stock = input("enter stock: ")
-start_date = input("enter start date it should have this form y-mo-d: ")
-end_date = input("enter start date it should have this form y-mo-d: ")
-stock_data_instance = data(stock= stock, start_date=start_date, end_date=end_date)
+# Get user inputs
+stock = input("Enter stock: ")
+start_date = input("Enter start date (y-mo-d): ")
+end_date = input("Enter end date (y-mo-d): ")
 
-#Accessing the data to work with it
+# Fetch the data
+df = data(stock=stock, start_date=start_date, end_date=end_date)
+print("Fetched data:", df)  # Debugging line to check the structure of df
 
-class algorithm():
-    def __init__(self, data) -> None:
+print(type(data))
+
+# Check if df is already a DataFrame
+if isinstance(df, pd.DataFrame):
+    data = df
+else:
+    data = pd.DataFrame(df)
+
+class Algorithm:
+    def __init__(self, data):
         self.data = data
-        regressor = RandomForestRegressor(n_estimators=100, max_depth=None)
-        output = regressor(data)
-        print(output)
+        self.regressor = RandomForestRegressor(max_depth=3, random_state=0)
 
-        return output
+    def train(self):
+        if not isinstance(self.data, pd.DataFrame):
+            raise TypeError("Data should be a pandas DataFrame")
+        
+        x = self.data[["Open", "High", "Low", "ROC"]]
+        y = self.data["Close"]
+        
+        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+        
+        self.regressor.fit(x_train, y_train)
+        
+        predictions = self.regressor.predict(x_test)
+        print("Predictions:", predictions)
 
-algorithm(data=data)
+        return predictions
+
+# Initialize and train the model
+model = Algorithm(data=data)
+model.train()
+
